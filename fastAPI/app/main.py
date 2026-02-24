@@ -60,7 +60,7 @@ async def chat(request: ChatRequest):
         print(f"Received chat request: {request.message} in {request.language}")
         response = rag_service.search_schemes(request.message, request.language)
         return ChatResponse(
-            response=response, 
+            response=response,
             audio_url=None,
             suggested_actions=[],
             confidence_score=0.85
@@ -75,18 +75,18 @@ async def analyze_form(request: dict):
     try:
         image_data = request.get("image_data")
         language = request.get("language", "English")
-        
+
         if not image_data:
             raise HTTPException(status_code=400, detail="No image data provided")
-        
+
         ocr_result = ocr_service.extract_text_from_image(image_data)
         help_text = rag_service.generate_form_help(ocr_result["fields"], language)
-        
+
         if language != "English":
             help_text = translation_service.translate_text(help_text, language)
-        
+
         audio_url = tts_service.text_to_speech(help_text, language)
-        
+
         return {
             "text": ocr_result["text"],
             "fields": ocr_result["fields"],
@@ -102,10 +102,10 @@ async def generate_audio(request: dict):
     try:
         text = request.get("text")
         language = request.get("language", "English")
-        
+
         if not text:
             raise HTTPException(status_code=400, detail="No text provided")
-            
+
         audio_url = tts_service.text_to_speech(text, language)
         return {"audio_url": audio_url}
     except Exception as e:
@@ -126,10 +126,10 @@ async def debug_token(request: dict):
         token = request.get("token")
         if not token:
             return {"error": "No token provided"}
-        
+
         import jwt
-        JWT_SECRET = os.getenv("JWT_SECRET", "mysarkar_jwt_secret_key_2024")
-        
+        JWT_SECRET = os.getenv("JWT_SECRET", "JanSethu_jwt_secret_key_2024")
+
         try:
             payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
             return {"valid": True, "payload": payload}
@@ -139,9 +139,9 @@ async def debug_token(request: dict):
             return {"valid": False, "error": f"Invalid token: {str(e)}"}
     except Exception as e:
         return {"error": str(e)}
-        
 
-        # Translator 
+
+        # Translator
 class TranslateIn(BaseModel):
     text: str
     language: str = "hi"
@@ -154,13 +154,13 @@ def translate(body: TranslateIn):
     try:
         if not body.text or not body.text.strip():
             raise HTTPException(status_code=400, detail="Text is required")
-        
+
         translated = translate_text(body.text, body.language)
         return {"translatedText": translated}
     except Exception as e:
         print(f"Translation endpoint error: {e}")
         raise HTTPException(status_code=500, detail="Translation failed")
-        
+
 # Add this after your existing imports
 class HateSpeechRequest(BaseModel):
     text: str
@@ -173,14 +173,14 @@ try:
     # Try different paths for the pickle files
     import os
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    
+
     # Try multiple possible paths
     possible_paths = [
         'Hate-Speech/vectorizer.pkl',
         '../Hate-Speech/vectorizer.pkl',
         os.path.join(current_dir, '..', 'Hate-Speech', 'vectorizer.pkl')
     ]
-    
+
     for path in possible_paths:
         try:
             tfidf = pickle.load(open(path, 'rb'))
@@ -190,10 +190,10 @@ try:
             break
         except FileNotFoundError:
             continue
-    
+
     if not tfidf:
         print("❌ Could not find hate speech model files")
-        
+
 except Exception as e:
     print(f"❌ Error loading hate speech models: {e}")
 
@@ -211,7 +211,7 @@ def transform_text(text):
             text = text.replace(wrd,'')
 
     text = text.lower()
-    
+
     # Use simple split as fallback if NLTK fails
     try:
         text = nltk.word_tokenize(text)
@@ -256,19 +256,19 @@ async def detect_hate_speech(request: HateSpeechRequest):
     """Detect hate speech in text"""
     try:
         print(f"🔍 Checking text: {request.text[:50]}...")
-        
+
         if not tfidf or not hate_model:
             print("❌ Models not loaded")
             raise HTTPException(status_code=503, detail="Hate speech detection service unavailable")
-        
+
         transformed_text = transform_text(request.text)
         print(f"🔄 Transformed: {transformed_text}")
-        
+
         vector_input = tfidf.transform([transformed_text])
         result = hate_model.predict(vector_input)[0]
-        
+
         print(f"✅ Result: {result}")
-        
+
         return {
             "is_hate_speech": bool(result),
             "text": request.text

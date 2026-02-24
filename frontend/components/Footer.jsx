@@ -44,7 +44,7 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="bg-white border-2 border-b-4 border-r-4 border-purple-800 rounded-2xl p-6">
             <h3 className="text-2xl font-bold text-purple-800 mb-4">
-              MySarkar
+              JanSethu
             </h3>
             <p className="text-gray-600 mb-4 text-sm">
               Simplifying government processes with AI-powered assistance. Your
@@ -132,7 +132,7 @@ export const Footer = () => {
                 </div>
                 <div>
                   <div className="text-gray-800 font-medium text-sm">
-                    support@mysarkar.gov.in
+                    support@JanSethu.gov.in
                   </div>
                   <div className="text-gray-500 text-xs">
                     24/7 email support
@@ -219,7 +219,7 @@ export const Footer = () => {
           <div className="mt-8 pt-6 border-t border-purple-200 text-center">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-600 text-sm">
-                © 2025 MySarkar. All rights reserved. | Government of India
+                © 2025 JanSethu. All rights reserved. | Government of India
                 Initiative
               </p>
               <div className="flex items-center gap-4 text-xs text-gray-500">

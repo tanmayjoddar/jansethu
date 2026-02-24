@@ -51,7 +51,7 @@ export const Landing = () => {
           <span className=" font-bold text-text">since 2025</span>
         </div>
         <h1 className="text-4xl md:text-6xl font-bold text-purple-800 text-shadow-purple-500 text-shadow-xl mb-6 stroke-1 stroke-black">
-          Welcome to MySarkar
+          Welcome to JanSethu
         </h1>
         <p className=" text-gray-600 mb-8 text-md">
           Effortlessly navigate government documents with AI-powered,
@@ -83,7 +83,7 @@ export const Landing = () => {
               <span>Scheme Feature</span>
             </h1>
             <p className="mt-3 text-gray-600 text-xs md:text-sm ">
-              Find all government schemes in one place with MySarkar—your simple
+              Find all government schemes in one place with JanSethu—your simple
               gateway to discovering central and state welfare programs. Scan
               documents, check eligibility, and get clear step-by-step guidance
               in Hindi, Bengali, or English to easily apply for the schemes you
@@ -176,7 +176,7 @@ export const Landing = () => {
           <div className="space-y-6">
             {[
               {
-                question: "How do I get started with MySarkar?",
+                question: "How do I get started with JanSethu?",
                 answer:
                   "Simply click 'Get Started', create your account, and upload your documents. Our AI assistant will guide you through the rest!",
                 bgColor: "bg-blue-100",
@@ -190,7 +190,7 @@ export const Landing = () => {
               {
                 question: "Which languages are supported?",
                 answer:
-                  "MySarkar supports Hindi, Bengali, and English for both text and voice interactions.",
+                  "JanSethu supports Hindi, Bengali, and English for both text and voice interactions.",
                 bgColor: "bg-yellow-100",
               },
               {
@@ -231,7 +231,7 @@ export const Landing = () => {
                   <Mail className="text-purple-700" size={32} />
                 </div>
                 <h3 className="font-bold text-purple-800 mb-2">Email Us</h3>
-                <p className="text-gray-600">support@mysarkar.gov.in</p>
+                <p className="text-gray-600">support@JanSethu.gov.in</p>
                 <p className="text-gray-500 text-sm">
                   Response within 24 hours
                 </p>
@@ -258,7 +258,7 @@ export const Landing = () => {
             </h2>
             <p className="text-xl mb-8 opacity-90">
               Join thousands of users who have already streamlined their
-              government interactions with MySarkar.
+              government interactions with JanSethu.
             </p>
             <Link
               to="/login"
